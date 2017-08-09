@@ -20,6 +20,7 @@
             <option value="1">video-tagging using square markers</option>
             <option value="2">video-tagging using point markers</option>
             <option value="3">video-tagging using rectangle markers</option>
+            <option value="4">image-tagging using rectangle markers</option>
       </select>
       <br>
     </div>
@@ -58,14 +59,21 @@
     job3.Config.tags = ["shoe","stone","hat","shirt","white","brown"];
     job3.DurationSeconds = 21.8;
     job3.FramesPerSecond = 25;
-    job3.Description = "Job2";
+    job3.Description = "Job3";
     job3.id = 3;
     job3.video = "mov2.mp4";
 
+    var job4 = {};
+    job4.Config = {"regiontype":"Rectangle",  "multiregions":"1"};
+    job4.Config.tags = ["shoe","stone","hat","shirt","white","brown"];
+    job4.Description = "Job4";
+    job4.imagelist = ['test_images/1.jpg','test_images/2.jpg','test_images/3.jpg','test_images/4.jpg'];
+    job4.id = 4;
 
-    jobList.push(job1)
-    jobList.push(job2)
-    jobList.push(job3)
+    jobList.push(job1);
+    jobList.push(job2);
+    jobList.push(job3);
+    jobList.push(job4);
 
     function jobSelectionChanged(){
 
@@ -86,18 +94,22 @@
         
         var videotagging = document.getElementById('video-tagging');
 
-        videotagging.videoduration = job.DurationSeconds;
-        videotagging.videowidth = job.Width;
-        videotagging.videoheight = job.Height;
-        videotagging.framerate = job.FramesPerSecond;
-
         var jobConfig = job.Config;
         videotagging.regiontype = jobConfig.regiontype;
         videotagging.multiregions = jobConfig.multiregions;
         videotagging.regionsize = jobConfig.regionsize;
         videotagging.inputtagsarray = jobConfig.tags;
-        
-        videotagging.src = job.video;//load
+
+        if (!job.imagelist){ //video
+            videotagging.videoduration = job.DurationSeconds;
+            videotagging.videowidth = job.Width;
+            videotagging.videoheight = job.Height;
+            videotagging.framerate = job.FramesPerSecond;
+            videotagging.src = job.video;//load
+        } else {//images
+            videotagging.imagelist = job.imagelist; 
+            videotagging.src = 'images';
+        }
     }
     
     document.getElementById('video-tagging').addEventListener('onregionchanged', function (e) {

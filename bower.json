@@ -1,8 +1,9 @@
 {
   "name": "video-tagging",
-  "version": "v0.0.24",
+  "version": "1.0.2",
   "authors": [
-    "OzGitele"
+    "OzGitele",
+    "aribornstein"
   ],
   "description": "A conrol for tagging videos.",
   "keywords": [
